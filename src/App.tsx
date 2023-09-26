@@ -1,7 +1,6 @@
 import { Layout } from "antd";
 import { Content, Header } from "antd/es/layout/layout";
-import React from "react";
-import { TodoItem } from "./componets/TodoItem";
+import { TodoList } from "./componets/TodoList";
 // import { Header } from "./componets/Header";
 
 function App() {
@@ -11,7 +10,7 @@ function App() {
         Список задач
       </Header>
       <Content>
-        <TodoItem />
+        <TodoList />
       </Content>
     </Layout>
   );

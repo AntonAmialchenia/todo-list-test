@@ -1,8 +1,13 @@
 import { Button, Checkbox } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { FC } from "react";
+import { Todo } from "../types";
 
-export const TodoItem: FC = () => {
+interface TodoItemProps {
+  todo: Todo;
+}
+
+export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
   return (
     <div
       style={{
@@ -12,8 +17,8 @@ export const TodoItem: FC = () => {
         alignItems: "center",
         fontSize: 20,
       }}>
-      <Checkbox />
-      <h3>Выучить Typescript</h3>
+      <Checkbox checked={todo.checked} />
+      <h3>{todo.body}</h3>
       <Button type="primary" shape="circle" icon={<DeleteOutlined />} />
     </div>
   );
