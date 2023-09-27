@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import todo from "./sliceTodo";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    todo,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
