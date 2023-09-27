@@ -1,38 +1,17 @@
 import { Button, Input, Modal } from "antd";
-import dayjs from "dayjs";
-import { FC, useState } from "react";
-import { Todo } from "../types";
-import { useAppDispatch } from "../hooks/redux";
-import { addTodo } from "../store/sliceTodo";
+import { FC } from "react";
+import { useModal } from "../hooks/useModal";
 
 export const ModalApp: FC = () => {
-  const dispatch = useAppDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const {
+    value,
+    setValue,
+    showModal,
+    isModalOpen,
+    handleAddTodo,
+    handleCancel,
+  } = useModal();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    const newTodo: Todo = {
-      id: Date.now(),
-      body: value,
-      checked: false,
-      timeCreate: dayjs().format("h:mm:ss"),
-    };
-
-    if (value) {
-      dispatch(addTodo(newTodo));
-    }
-
-    setValue("");
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   return (
     <>
       <div
@@ -44,7 +23,7 @@ export const ModalApp: FC = () => {
       <Modal
         title="Добовление новой задачи"
         open={isModalOpen}
-        onOk={handleOk}
+        onOk={handleAddTodo}
         onCancel={handleCancel}
         cancelText="Не добовлять"
         okText="Добавить">

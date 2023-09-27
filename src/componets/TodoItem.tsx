@@ -1,9 +1,8 @@
 import { Button, Checkbox, Input } from "antd";
 import { DeleteOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Todo } from "../types";
-import { useAppDispatch } from "../hooks/redux";
-import { checkedTodo, deleteTodo, updateTodo } from "../store/sliceTodo";
+import { useTodo } from "../hooks/useTodo";
 
 interface TodoItemProps {
   todo: Todo;
@@ -37,29 +36,21 @@ const flexStyle: React.CSSProperties = {
 
 export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
   const { id, body, checked, timeCreate } = todo;
-
-  const dispatch = useAppDispatch();
-  const [edit, setEdit] = useState(false);
-  const [value, setValue] = useState(todo.body);
-
-  const hendleUdateTodo = () => {
-    dispatch(updateTodo({ body: value, id: todo.id }));
-    setEdit(false);
-  };
-
-  const hendleChecked = () => {
-    dispatch(checkedTodo({ id, checked: !checked }));
-  };
-
-  const handleDeleteTodo = (id: number) => {
-    dispatch(deleteTodo(id));
-  };
+  const {
+    value,
+    setValue,
+    edit,
+    setEdit,
+    handleChecked,
+    handleDeleteTodo,
+    handleUdateTodo,
+  } = useTodo(todo);
 
   return (
     <div style={todoStyle}>
       <div style={flexStyle}>
         <div style={flexStyle}>
-          <Checkbox onChange={hendleChecked} checked={checked} />
+          <Checkbox onChange={handleChecked} checked={checked} />
           {edit ? (
             <Input
               style={{ fontSize: 20 }}
@@ -92,7 +83,7 @@ export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
         />
         {edit ? (
           <Button
-            onClick={hendleUdateTodo}
+            onClick={handleUdateTodo}
             type="default"
             shape="circle"
             icon={<CheckOutlined />}
