@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Todo, UpdatePayload } from "../../types";
+import { CheckedPayload, Todo, UpdatePayload } from "../../types";
 
 export interface TodosState {
   todos: Todo[];
@@ -27,9 +27,17 @@ export const todoSlice = createSlice({
           : item,
       );
     },
+    checkedTodo: (state, action: PayloadAction<CheckedPayload>) => {
+      state.todos = state.todos.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, checked: action.payload.checked }
+          : item,
+      );
+    },
   },
 });
 
-export const { addTodo, deleteTodo, updateTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, updateTodo, checkedTodo } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;

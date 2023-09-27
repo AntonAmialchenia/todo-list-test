@@ -9,6 +9,7 @@ export const ModalApp: FC = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState("");
+
   const showModal = () => {
     setIsModalOpen(true);
   };

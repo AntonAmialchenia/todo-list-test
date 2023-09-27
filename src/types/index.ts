@@ -9,3 +9,8 @@ export interface UpdatePayload {
   body: string;
   id: number;
 }
+
+export interface CheckedPayload {
+  id: number;
+  checked: boolean;
+}

@@ -3,7 +3,7 @@ import { DeleteOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
 import { FC, useState } from "react";
 import { Todo } from "../types";
 import { useAppDispatch } from "../hooks/redux";
-import { deleteTodo, updateTodo } from "../store/sliceTodo";
+import { checkedTodo, deleteTodo, updateTodo } from "../store/sliceTodo";
 
 interface TodoItemProps {
   todo: Todo;
@@ -36,6 +36,8 @@ const flexStyle: React.CSSProperties = {
 };
 
 export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
+  const { id, body, checked, timeCreate } = todo;
+
   const dispatch = useAppDispatch();
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState(todo.body);
@@ -45,7 +47,11 @@ export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
     setEdit(false);
   };
 
-  const handlDeleteTodo = (id: number) => {
+  const hendleChecked = () => {
+    dispatch(checkedTodo({ id, checked: !checked }));
+  };
+
+  const handleDeleteTodo = (id: number) => {
     dispatch(deleteTodo(id));
   };
 
@@ -53,7 +59,7 @@ export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
     <div style={todoStyle}>
       <div style={flexStyle}>
         <div style={flexStyle}>
-          <Checkbox checked={todo.checked} />
+          <Checkbox onChange={hendleChecked} checked={checked} />
           {edit ? (
             <Input
               style={{ fontSize: 20 }}
@@ -62,14 +68,24 @@ export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
               onChange={(e) => setValue(e.target.value)}
             />
           ) : (
-            <h3 style={{ textOverflow: "ellipsis" }}>{todo.body}</h3>
+            <h3
+              style={
+                checked
+                  ? {
+                      textDecorationLine: "line-through",
+                      textDecorationStyle: "double",
+                    }
+                  : { textDecorationLine: "none" }
+              }>
+              {body}
+            </h3>
           )}
         </div>
-        <time style={{ fontSize: 12 }}>{todo.timeCreate}</time>
+        <time style={{ fontSize: 12 }}>{timeCreate}</time>
       </div>
       <div style={buttonsStyle}>
         <Button
-          onClick={() => handlDeleteTodo(todo.id)}
+          onClick={() => handleDeleteTodo(id)}
           type="primary"
           shape="circle"
           icon={<DeleteOutlined />}
