@@ -2,6 +2,8 @@ import { Button, Checkbox } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { FC } from "react";
 import { Todo } from "../types";
+import { useAppDispatch } from "../hooks/redux";
+import { deleteTodo } from "../store/sliceTodo";
 
 interface TodoItemProps {
   todo: Todo;
@@ -21,11 +23,21 @@ const todoStyle = {
 };
 
 export const TodoItem: FC<TodoItemProps> = ({ todo }) => {
+  const dispatch = useAppDispatch();
+  const handlDeleteTodo = (id: number) => {
+    dispatch(deleteTodo(id));
+  };
+
   return (
     <div style={todoStyle}>
       <Checkbox checked={todo.checked} />
       <h3>{todo.body}</h3>
-      <Button type="primary" shape="circle" icon={<DeleteOutlined />} />
+      <Button
+        onClick={() => handlDeleteTodo(todo.id)}
+        type="primary"
+        shape="circle"
+        icon={<DeleteOutlined />}
+      />
       <time style={{ fontSize: 12 }}>{todo.timeCreate}</time>
     </div>
   );

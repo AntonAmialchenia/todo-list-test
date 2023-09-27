@@ -20,7 +20,11 @@ export const ModalApp: FC = () => {
       checked: false,
       timeCreate: dayjs().format("h:mm:ss"),
     };
-    dispatch(addTodo(newTodo));
+
+    if (value) {
+      dispatch(addTodo(newTodo));
+    }
+
     setValue("");
     setIsModalOpen(false);
   };
