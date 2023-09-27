@@ -4,3 +4,8 @@ export interface Todo {
   checked: boolean;
   timeCreate: string;
 }
+
+export interface UpdatePayload {
+  body: string;
+  id: number;
+}

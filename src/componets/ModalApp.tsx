@@ -34,9 +34,12 @@ export const ModalApp: FC = () => {
   };
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Добавить новую задачу
-      </Button>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
+        <Button type="primary" onClick={showModal}>
+          Добавить новую задачу
+        </Button>
+      </div>
       <Modal
         title="Добовление новой задачи"
         open={isModalOpen}
