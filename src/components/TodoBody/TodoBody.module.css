@@ -1,0 +1,12 @@
+.font {
+  font-size: 20px;
+}
+
+.decoration {
+  text-decoration: line-through;
+  text-decoration-style: double;
+}
+
+.decorationNone {
+  text-decoration: none;
+}

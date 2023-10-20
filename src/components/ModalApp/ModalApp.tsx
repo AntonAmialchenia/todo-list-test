@@ -1,6 +1,8 @@
 import { Button, Input, Modal } from "antd";
 import { FC } from "react";
-import { useModal } from "../hooks/useModal";
+import { useModal } from "../../hooks/useModal";
+
+import styles from "./ModalApp.module.css";
 
 export const ModalApp: FC = () => {
   const {
@@ -14,18 +16,17 @@ export const ModalApp: FC = () => {
 
   return (
     <>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginBottom: 15 }}>
+      <div className={styles.flex}>
         <Button type="primary" onClick={showModal}>
           Добавить новую задачу
         </Button>
       </div>
       <Modal
-        title="Добовление новой задачи"
+        title="Доавление новой задачи"
         open={isModalOpen}
         onOk={handleAddTodo}
         onCancel={handleCancel}
-        cancelText="Не добовлять"
+        cancelText="Не добавлять"
         okText="Добавить">
         <Input
           placeholder="Добавить задачу"

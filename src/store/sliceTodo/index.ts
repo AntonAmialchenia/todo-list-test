@@ -21,18 +21,26 @@ export const todoSlice = createSlice({
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
     updateTodo: (state, action: PayloadAction<UpdatePayload>) => {
-      state.todos = state.todos.map((item) =>
-        item.id === action.payload.id
-          ? { ...item, body: action.payload.body }
-          : item,
+      const index = state.todos.findIndex(
+        (todo) => todo.id === action.payload.id,
       );
+      if (index !== -1) {
+        state.todos[index] = {
+          ...state.todos[index],
+          body: action.payload.body,
+        };
+      }
     },
     checkedTodo: (state, action: PayloadAction<CheckedPayload>) => {
-      state.todos = state.todos.map((item) =>
-        item.id === action.payload.id
-          ? { ...item, checked: action.payload.checked }
-          : item,
+      const index = state.todos.findIndex(
+        (todo) => todo.id === action.payload.id,
       );
+      if (index !== -1) {
+        state.todos[index] = {
+          ...state.todos[index],
+          checked: action.payload.checked,
+        };
+      }
     },
   },
 });

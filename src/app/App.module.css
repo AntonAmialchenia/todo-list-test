@@ -1,0 +1,13 @@
+.layout {
+  min-height: 100vh;
+}
+
+.header {
+  color: #fff;
+  text-align: center;
+  font-size: 40px;
+}
+
+.content {
+  padding: 20px;
+}

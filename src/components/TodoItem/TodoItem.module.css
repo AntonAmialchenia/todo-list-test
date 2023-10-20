@@ -1,0 +1,21 @@
+.todo {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+  max-width: 560px;
+  margin: 0 auto;
+  border: 1px solid #bdb5b5;
+  padding: 5px 15px;
+  border-radius: 15px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.time {
+  font-size: 12px;
+}

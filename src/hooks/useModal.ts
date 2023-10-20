@@ -8,12 +8,31 @@ export const useModal = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [inputError, setInputError] = useState<string | null>(null);
 
   const showModal = () => {
     setIsModalOpen(true);
+    // Очистка ошибок и значения при открытии модального окна
+    setValue("");
+    setInputError(null);
+  };
+
+  const validateInput = (): boolean => {
+    if (!value.trim()) {
+      setInputError(
+        "Поле не может быть пустым. Пожалуйста, введите некоторое значение.",
+      );
+      return false;
+    }
+    return true;
   };
 
   const handleAddTodo = () => {
+    if (!validateInput()) {
+      // Если ввод не валиден, не продолжаем создание задачи
+      return;
+    }
+
     const newTodo: Todo = {
       id: Date.now(),
       body: value,
@@ -21,15 +40,13 @@ export const useModal = () => {
       timeCreate: dayjs().format("h:mm:ss"),
     };
 
-    if (value) {
-      dispatch(addTodo(newTodo));
-    }
-
+    dispatch(addTodo(newTodo));
     setValue("");
     setIsModalOpen(false);
   };
 
   const handleCancel = () => {
+    setValue("");
     setIsModalOpen(false);
   };
 
@@ -40,5 +57,6 @@ export const useModal = () => {
     showModal,
     handleAddTodo,
     handleCancel,
+    inputError,
   };
 };
